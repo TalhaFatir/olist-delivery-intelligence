@@ -4,6 +4,12 @@
 
 Independent business analytics using real, anonymized historical Olist marketplace transactions. Not a fictional dataset, not work commissioned by Olist, and not a claim of implemented business outcomes.
 
+## Live Power BI Dashboard
+
+**[Open the interactive report](https://app.powerbi.com/view?r=eyJrIjoiMDhhOTAyZWUtOTgxYy00NTlmLTk1MTgtZjJkYTg1MzRmMGE3IiwidCI6ImM3MzNiYzhmLWMwODYtNGFhYS05YmQ4LTZiZjZhMTRiYWJjMSJ9)** | Public viewing, no sign-in required.
+
+Three pages: Delivery Overview, Seller Priorities, and Evidence & Scope. Filter by purchase year, customer state and order category. This public report and its semantic model contain derived public Olist data only. Historical Brazil, 2016-2018; source attribution and measurement boundaries below.
+
 ## Business Question
 Where are deliveries missing customer expectations, how do reviews differ, and which sellers warrant operational investigation?
 
@@ -48,4 +54,4 @@ Delivery KPIs include delivered orders with valid purchase/delivery/promise date
 Multiple reviews resolve to the latest answered review per order, with deterministic timestamp/ID/score tie-breaks. Financial values aggregate all items before order-level joins, avoiding multiplication by item or review rows. Mixed categories and multiple sellers remain explicit groups; seller ranking excludes multiple-seller orders. Seller aliases are generated analytical labels, not company names. Item value is GMV, not Olist revenue or profit. Freight charges are not verified carrier costs. Review comparison excludes missing reviews and does not control for confounding or voluntary response bias.
 
 ## Scope
-This project demonstrates SQL, metric design, operational analysis, data validation, interactive reporting and business requirements. The native Power BI report has been refreshed and verified in Desktop. Public service publication and a live link are pending.
+This project demonstrates SQL, metric design, operational analysis, data validation, interactive reporting and business requirements. The native report has been refreshed and verified in Desktop, published to Power BI Service, and checked through its public viewing link on October 11, 2026.

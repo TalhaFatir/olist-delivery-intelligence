@@ -22,7 +22,8 @@ Checked October 11, 2026.
 | Static downloads | Clean CSV, SQL, decision brief and manifest endpoints return HTTP 200 |
 | Dynamic filtered export | Button exercised; automated download event timed out, so final browser download completion is not verified |
 | Power BI generated source | 48 official-schema documents passed; 40 visual layouts and model references checked; 99,441 source rows and exact financial totals reconciled |
-| Power BI runtime | Desktop refreshed and all three pages rendered; on time 93.2%, late 6,534, P90 23.1 days; reviewed late 6,381 / low 3,983, on time 89,443 / low 8,289; service publication pending |
+| Power BI runtime | Desktop refreshed and all three pages rendered; on time 93.2%, late 6,534, P90 23.1 days; reviewed late 6,381 / low 3,983, on time 89,443 / low 8,289; matching published service metrics verified |
+| Public Power BI | Publish-to-web success confirmed; public view renders overview and corrected review shares without an authentication prompt; three-page navigation available |
 | Power BI saved source | Desktop saved 40 visuals; model references, exact source totals and layout passed structural checks. Generated source passed 48 schema documents before Desktop upgraded report schemas; not a full schema validation of Desktop's saved format |
 | GitHub | Public TalhaFatir/olist-delivery-intelligence upload verified; commit author Talha Fatir <talha01677@gmail.com> |
 
