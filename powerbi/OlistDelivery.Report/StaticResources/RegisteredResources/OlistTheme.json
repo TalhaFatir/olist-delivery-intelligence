@@ -1,0 +1,12 @@
+{
+  "name": "Olist Delivery",
+  "dataColors": [
+    "#147D81",
+    "#DC6B59",
+    "#768B61",
+    "#A17BA5"
+  ],
+  "background": "#F5F7F7",
+  "foreground": "#253437",
+  "tableAccent": "#147D81"
+}

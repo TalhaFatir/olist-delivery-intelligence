@@ -1,0 +1,9 @@
+data/raw/
+data/olist.sqlite
+__pycache__/
+*.pyc
+screenshots/
+outputs/
+.venv/
+.pbi/
+*.pbix

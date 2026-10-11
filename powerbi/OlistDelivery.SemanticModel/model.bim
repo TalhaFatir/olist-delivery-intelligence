@@ -1,0 +1,277 @@
+{
+  "name": "OlistDelivery",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "sourceQueryCulture": "en-CA",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": "\"C:/Users/Hp/Documents/ChatGPT/new/olist-delivery-intelligence/powerbi/data\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "tables": [
+      {
+        "name": "Orders",
+        "columns": [
+          {
+            "name": "order_id",
+            "sourceColumn": "order_id",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month",
+            "sourceColumn": "month",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "state",
+            "sourceColumn": "state",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "category",
+            "sourceColumn": "category",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "seller",
+            "sourceColumn": "seller",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status",
+            "sourceColumn": "status",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "eligible",
+            "sourceColumn": "eligible",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "late",
+            "sourceColumn": "late",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "delivery_days",
+            "sourceColumn": "delivery_days",
+            "dataType": "double",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "review_score",
+            "sourceColumn": "review_score",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "item_cents",
+            "sourceColumn": "item_cents",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "freight_cents",
+            "sourceColumn": "freight_cents",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "year",
+            "sourceColumn": "year",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "delivery_group",
+            "sourceColumn": "delivery_group",
+            "dataType": "string",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Order Count",
+            "expression": "COUNTROWS(Orders)",
+            "formatString": "#,0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Eligible Deliveries",
+            "expression": "CALCULATE(COUNTROWS(Orders), Orders[eligible] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Late Deliveries",
+            "expression": "CALCULATE([Eligible Deliveries], Orders[late] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "On Time Rate",
+            "expression": "DIVIDE([Eligible Deliveries] - [Late Deliveries], [Eligible Deliveries])",
+            "formatString": "0.0%",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Late Rate",
+            "expression": "DIVIDE([Late Deliveries], [Eligible Deliveries])",
+            "formatString": "0.00%",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Excluded Orders",
+            "expression": "CALCULATE(COUNTROWS(Orders), Orders[eligible] = 0)",
+            "formatString": "#,0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Mean Delivery Days",
+            "expression": "CALCULATE(AVERAGE(Orders[delivery_days]), Orders[eligible] = 1)",
+            "formatString": "0.0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "P90 Delivery Days",
+            "expression": "VAR T = FILTER(Orders, Orders[eligible] = 1 && NOT ISBLANK(Orders[delivery_days])) VAR N = COUNTROWS(T) RETURN IF(N > 0, MAXX(TOPN(ROUNDUP(N * 0.9, 0), T, Orders[delivery_days], ASC), Orders[delivery_days]))",
+            "formatString": "0.0",
+            "displayFolder": "Delivery"
+          },
+          {
+            "name": "Reviewed Deliveries",
+            "expression": "CALCULATE([Eligible Deliveries], NOT ISBLANK(Orders[review_score]))",
+            "formatString": "#,0",
+            "displayFolder": "Customer experience"
+          },
+          {
+            "name": "Low Reviews",
+            "expression": "CALCULATE([Reviewed Deliveries], Orders[review_score] IN {1, 2})",
+            "formatString": "#,0",
+            "displayFolder": "Customer experience"
+          },
+          {
+            "name": "Low Review Rate",
+            "expression": "DIVIDE([Low Reviews], [Reviewed Deliveries])",
+            "formatString": "0.0%",
+            "displayFolder": "Customer experience"
+          },
+          {
+            "name": "Mean Review Score",
+            "expression": "CALCULATE(AVERAGE(Orders[review_score]), Orders[eligible] = 1)",
+            "formatString": "0.00",
+            "displayFolder": "Customer experience"
+          },
+          {
+            "name": "Item Value BRL",
+            "expression": "SUM(Orders[item_cents]) / 100",
+            "formatString": "\"R$\" #,0.00",
+            "displayFolder": "Financial context"
+          },
+          {
+            "name": "Freight Charged BRL",
+            "expression": "SUM(Orders[freight_cents]) / 100",
+            "formatString": "\"R$\" #,0.00",
+            "displayFolder": "Financial context"
+          },
+          {
+            "name": "Seller Eligible",
+            "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Eligible Deliveries])",
+            "formatString": "#,0",
+            "displayFolder": "Seller investigation"
+          },
+          {
+            "name": "Seller Late",
+            "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Late Deliveries])",
+            "formatString": "#,0",
+            "displayFolder": "Seller investigation"
+          },
+          {
+            "name": "Seller Late Rate",
+            "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Late Rate])",
+            "formatString": "0.0%",
+            "displayFolder": "Seller investigation"
+          },
+          {
+            "name": "Seller Mean Days",
+            "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Mean Delivery Days])",
+            "formatString": "0.0",
+            "displayFolder": "Seller investigation"
+          },
+          {
+            "name": "Report Title",
+            "expression": "\"OLIST / Delivery Intelligence\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Source Note",
+            "expression": "\"Talha Fatir | Public Olist data | Brazil, 2016-2018 | CC BY-NC-SA 4.0\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Delivery Rule",
+            "expression": "\"Late = arrival calendar date after promise; valid delivered orders only.\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Review Rule",
+            "expression": "\"Latest answered review per order; missing reviews excluded. Association, not causation.\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Seller Rule",
+            "expression": "\"Single-seller orders only; at least 100 eligible deliveries in selection.\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Money Rule",
+            "expression": "\"Item value is GMV, not revenue. Freight charged is not verified carrier cost.\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          },
+          {
+            "name": "Scope Rule",
+            "expression": "\"Historical Brazil extract; partial edge months. No current Canadian market claims.\"",
+            "formatString": "",
+            "displayFolder": "Context"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Orders",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                " Source = Csv.Document(File.Contents(DataFolder & \"/Orders.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                " Headers = Table.PromoteHeaders(Source,[PromoteAllScalars=true]),",
+                " Nulls = Table.ReplaceValue(Headers,\"\",null,Replacer.ReplaceValue,{\"eligible\", \"late\", \"delivery_days\", \"review_score\", \"item_cents\", \"freight_cents\"}),",
+                " Typed = Table.TransformColumnTypes(Nulls,{{\"order_id\", type text}, {\"month\", type text}, {\"state\", type text}, {\"category\", type text}, {\"seller\", type text}, {\"status\", type text}, {\"eligible\", Int64.Type}, {\"late\", Int64.Type}, {\"delivery_days\", type number}, {\"review_score\", Int64.Type}, {\"item_cents\", Int64.Type}, {\"freight_cents\", Int64.Type}, {\"year\", type text}, {\"delivery_group\", type text}},\"en-CA\")",
+                "in",
+                " Typed"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

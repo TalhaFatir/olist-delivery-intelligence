@@ -1,0 +1,10 @@
+{
+  "schema_files": 48,
+  "schema_validation": "passed",
+  "tables": 1,
+  "visuals": 40,
+  "order_rows": 99441,
+  "eligible": 96470,
+  "late": 6534,
+  "item_cents": 1359164370
+}
