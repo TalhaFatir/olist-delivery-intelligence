@@ -47,7 +47,7 @@ def build_model():
     add('Excluded Orders', 'CALCULATE(COUNTROWS(Orders), Orders[eligible] = 0)')
     add('Mean Delivery Days', 'CALCULATE(AVERAGE(Orders[delivery_days]), Orders[eligible] = 1)', '0.0')
     add('P90 Delivery Days', 'VAR T = FILTER(Orders, Orders[eligible] = 1 && NOT ISBLANK(Orders[delivery_days])) VAR N = COUNTROWS(T) RETURN IF(N > 0, MAXX(TOPN(ROUNDUP(N * 0.9, 0), T, Orders[delivery_days], ASC), Orders[delivery_days]))', '0.0')
-    add('Reviewed Deliveries', 'CALCULATE([Eligible Deliveries], NOT ISBLANK(Orders[review_score]))', '#,0', 'Customer experience')
+    add('Reviewed Deliveries', 'CALCULATE([Eligible Deliveries], KEEPFILTERS(NOT ISBLANK(Orders[review_score])))', '#,0', 'Customer experience')
     add('Low Reviews', 'CALCULATE([Reviewed Deliveries], Orders[review_score] IN {1, 2})', '#,0', 'Customer experience')
     add('Low Review Rate', 'DIVIDE([Low Reviews], [Reviewed Deliveries])', '0.0%', 'Customer experience')
     add('Mean Review Score', 'CALCULATE(AVERAGE(Orders[review_score]), Orders[eligible] = 1)', '0.00', 'Customer experience')
@@ -98,6 +98,15 @@ def build_report():
             config = {'visualType': kind, 'query': {'queryState': {r: {'projections': p} for r, p in roles.items()}}, 'visualContainerObjects': {'title': [{'properties': {'show': literal(bool(label)), 'text': literal(label), 'fontSize': literal(12), 'fontColor': {'solid': {'color': literal('#253437')}}}}], 'background': [{'properties': {'show': literal(True), 'color': {'solid': {'color': literal('#FFFFFF')}}, 'transparency': literal(0)}}]}}
             if objects:
                 config['objects'] = objects
+            sort = None
+            if kind in {'lineChart', 'clusteredColumnChart'} and roles['Category'][0]['nativeQueryRef'] == 'month':
+                sort = (field('month'), 'Ascending')
+            elif kind == 'clusteredBarChart':
+                sort = (roles['Y'][0], 'Descending')
+            elif kind == 'tableEx' and any(p['nativeQueryRef'] == 'Seller Late' for p in roles['Values']):
+                sort = (field('Seller Late', True), 'Descending')
+            if sort:
+                config['query']['sortDefinition'] = {'sort': [{'field': sort[0]['field'], 'direction': sort[1]}], 'isDefaultSort': False}
             write(page/'visuals'/name/'visual.json', {'$schema': SCHEMA+'/visualContainer/2.1.0/schema.json', 'name': name, 'position': {'x': x, 'y': y, 'width': w, 'height': h, 'z': index, 'tabOrder': index}, 'visual': config})
         def card(n, label, x, y, w, h, size=26):
             visual('card', label, x, y, w, h, {'Values': [field(n, True)]}, {'labels': [{'properties': {'fontSize': literal(size), 'color': {'solid': {'color': literal('#147D81')}}}}], 'categoryLabels': [{'properties': {'show': literal(False)}}]})

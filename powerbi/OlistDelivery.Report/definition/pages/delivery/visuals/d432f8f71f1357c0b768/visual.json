@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "d432f8f71f1357c0b768",
   "position": {
     "x": 32,
     "y": 555,
-    "width": 850,
-    "height": 230,
     "z": 11,
+    "height": 230,
+    "width": 850,
     "tabOrder": 11
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Orders.month",
-              "nativeQueryRef": "month"
+              "nativeQueryRef": "month",
+              "active": true
             }
           ]
         },
@@ -49,6 +50,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Orders"
+                  }
+                },
+                "Property": "month"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "visualContainerObjects": {

@@ -1,6 +1,6 @@
 {
-  "schema_files": 48,
-  "schema_validation": "passed",
+  "schema_files": 0,
+  "schema_validation": "not requested",
   "tables": 1,
   "visuals": 40,
   "order_rows": 99441,

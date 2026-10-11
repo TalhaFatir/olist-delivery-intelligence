@@ -1,256 +1,309 @@
 {
-  "name": "OlistDelivery",
-  "compatibilityLevel": 1600,
+  "compatibilityLevel": 1606,
   "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Orders\",\"DataFolder\"]"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
     "culture": "en-US",
-    "sourceQueryCulture": "en-CA",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "expressions": [
       {
         "name": "DataFolder",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ],
+        "expression": "\"C:/Users/Hp/Documents/ChatGPT/new/olist-delivery-intelligence/powerbi/data\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
-        "expression": "\"C:/Users/Hp/Documents/ChatGPT/new/olist-delivery-intelligence/powerbi/data\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+        "lineageTag": "e4306cb2-c6e7-434c-9a77-ee58adc09ee7"
       }
     ],
+    "sourceQueryCulture": "en-CA",
     "tables": [
       {
         "name": "Orders",
         "columns": [
           {
             "name": "order_id",
-            "sourceColumn": "order_id",
             "dataType": "string",
+            "lineageTag": "346bebff-058a-4746-866f-ec3ba270cb31",
+            "sourceColumn": "order_id",
             "summarizeBy": "none"
           },
           {
             "name": "month",
-            "sourceColumn": "month",
             "dataType": "string",
+            "lineageTag": "f891a044-3879-4f7d-812d-4615dde97c95",
+            "sourceColumn": "month",
             "summarizeBy": "none"
           },
           {
             "name": "state",
-            "sourceColumn": "state",
             "dataType": "string",
+            "lineageTag": "6dcc3d2b-35e8-4215-97fb-7cc3e675bfb6",
+            "sourceColumn": "state",
             "summarizeBy": "none"
           },
           {
             "name": "category",
-            "sourceColumn": "category",
             "dataType": "string",
+            "lineageTag": "c7d58b49-91f5-418b-84ae-ae40ecb5d0cb",
+            "sourceColumn": "category",
             "summarizeBy": "none"
           },
           {
             "name": "seller",
-            "sourceColumn": "seller",
             "dataType": "string",
+            "lineageTag": "6b230dce-83a4-461d-9f46-5e653c27be08",
+            "sourceColumn": "seller",
             "summarizeBy": "none"
           },
           {
             "name": "status",
-            "sourceColumn": "status",
             "dataType": "string",
+            "lineageTag": "f8422601-ac1e-4a73-ab29-6b567923dd15",
+            "sourceColumn": "status",
             "summarizeBy": "none"
           },
           {
             "name": "eligible",
-            "sourceColumn": "eligible",
             "dataType": "int64",
+            "lineageTag": "1bcbb254-14a1-48f3-80f1-56a1d71d5979",
+            "sourceColumn": "eligible",
             "summarizeBy": "none"
           },
           {
             "name": "late",
-            "sourceColumn": "late",
             "dataType": "int64",
+            "lineageTag": "674e0793-f36f-409f-8708-48b0161099d2",
+            "sourceColumn": "late",
             "summarizeBy": "none"
           },
           {
             "name": "delivery_days",
-            "sourceColumn": "delivery_days",
             "dataType": "double",
+            "lineageTag": "9e950f1f-e67b-4de5-89f6-51a034506bcd",
+            "sourceColumn": "delivery_days",
             "summarizeBy": "none"
           },
           {
             "name": "review_score",
-            "sourceColumn": "review_score",
             "dataType": "int64",
+            "lineageTag": "af226725-fef2-4b45-8f66-7614a6311e16",
+            "sourceColumn": "review_score",
             "summarizeBy": "none"
           },
           {
             "name": "item_cents",
-            "sourceColumn": "item_cents",
             "dataType": "int64",
+            "lineageTag": "4607a0c2-b31e-47df-8f65-42502bc0358d",
+            "sourceColumn": "item_cents",
             "summarizeBy": "none"
           },
           {
             "name": "freight_cents",
-            "sourceColumn": "freight_cents",
             "dataType": "int64",
+            "lineageTag": "8f091e88-0093-4134-8edd-96f001f1e625",
+            "sourceColumn": "freight_cents",
             "summarizeBy": "none"
           },
           {
             "name": "year",
-            "sourceColumn": "year",
             "dataType": "string",
+            "lineageTag": "0c4655e3-ac47-45be-ac58-4e7dc2c85617",
+            "sourceColumn": "year",
             "summarizeBy": "none"
           },
           {
             "name": "delivery_group",
-            "sourceColumn": "delivery_group",
             "dataType": "string",
+            "lineageTag": "9107d50a-9ffd-4b0b-be0b-cf02e39f7d2a",
+            "sourceColumn": "delivery_group",
             "summarizeBy": "none"
           }
         ],
+        "lineageTag": "4831ec4b-c50a-45b6-9c74-a2d734f92150",
         "measures": [
           {
             "name": "Order Count",
+            "displayFolder": "Delivery",
             "expression": "COUNTROWS(Orders)",
             "formatString": "#,0",
-            "displayFolder": "Delivery"
+            "lineageTag": "315c24b3-1f98-4c6b-b431-992eed5147b8"
           },
           {
             "name": "Eligible Deliveries",
+            "displayFolder": "Delivery",
             "expression": "CALCULATE(COUNTROWS(Orders), Orders[eligible] = 1)",
             "formatString": "#,0",
-            "displayFolder": "Delivery"
+            "lineageTag": "e5597f0d-b941-4a51-bb20-306f8cad9e7d"
           },
           {
             "name": "Late Deliveries",
+            "displayFolder": "Delivery",
             "expression": "CALCULATE([Eligible Deliveries], Orders[late] = 1)",
             "formatString": "#,0",
-            "displayFolder": "Delivery"
+            "lineageTag": "a9b41f63-d795-4d17-bc58-29ae0f54108e"
           },
           {
             "name": "On Time Rate",
+            "displayFolder": "Delivery",
             "expression": "DIVIDE([Eligible Deliveries] - [Late Deliveries], [Eligible Deliveries])",
             "formatString": "0.0%",
-            "displayFolder": "Delivery"
+            "lineageTag": "cd6c0403-367c-4e4c-945c-129991e7b15e"
           },
           {
             "name": "Late Rate",
+            "displayFolder": "Delivery",
             "expression": "DIVIDE([Late Deliveries], [Eligible Deliveries])",
             "formatString": "0.00%",
-            "displayFolder": "Delivery"
+            "lineageTag": "024fb5f3-258d-42ad-a6ba-050d3be5393f"
           },
           {
             "name": "Excluded Orders",
+            "displayFolder": "Delivery",
             "expression": "CALCULATE(COUNTROWS(Orders), Orders[eligible] = 0)",
             "formatString": "#,0",
-            "displayFolder": "Delivery"
+            "lineageTag": "a62f21fa-d344-4257-b782-ae8acf44d64e"
           },
           {
             "name": "Mean Delivery Days",
+            "displayFolder": "Delivery",
             "expression": "CALCULATE(AVERAGE(Orders[delivery_days]), Orders[eligible] = 1)",
             "formatString": "0.0",
-            "displayFolder": "Delivery"
+            "lineageTag": "3881d1f2-b8b3-4abb-bcd9-c6b574fdf650"
           },
           {
             "name": "P90 Delivery Days",
+            "displayFolder": "Delivery",
             "expression": "VAR T = FILTER(Orders, Orders[eligible] = 1 && NOT ISBLANK(Orders[delivery_days])) VAR N = COUNTROWS(T) RETURN IF(N > 0, MAXX(TOPN(ROUNDUP(N * 0.9, 0), T, Orders[delivery_days], ASC), Orders[delivery_days]))",
             "formatString": "0.0",
-            "displayFolder": "Delivery"
+            "lineageTag": "cfddeeba-5383-45d8-ba8e-e3f42caa90bb"
           },
           {
             "name": "Reviewed Deliveries",
-            "expression": "CALCULATE([Eligible Deliveries], NOT ISBLANK(Orders[review_score]))",
+            "displayFolder": "Customer experience",
+            "expression": "CALCULATE([Eligible Deliveries], KEEPFILTERS(NOT ISBLANK(Orders[review_score])))",
             "formatString": "#,0",
-            "displayFolder": "Customer experience"
+            "lineageTag": "fd9c9631-8857-4393-9f59-95b75ac6f294"
           },
           {
             "name": "Low Reviews",
+            "displayFolder": "Customer experience",
             "expression": "CALCULATE([Reviewed Deliveries], Orders[review_score] IN {1, 2})",
             "formatString": "#,0",
-            "displayFolder": "Customer experience"
+            "lineageTag": "5d2a2ee0-b688-4b27-b2ad-64b9a9d115cd"
           },
           {
             "name": "Low Review Rate",
+            "displayFolder": "Customer experience",
             "expression": "DIVIDE([Low Reviews], [Reviewed Deliveries])",
             "formatString": "0.0%",
-            "displayFolder": "Customer experience"
+            "lineageTag": "84783594-7ba9-41eb-ad57-9651d6058c0b"
           },
           {
             "name": "Mean Review Score",
+            "displayFolder": "Customer experience",
             "expression": "CALCULATE(AVERAGE(Orders[review_score]), Orders[eligible] = 1)",
             "formatString": "0.00",
-            "displayFolder": "Customer experience"
+            "lineageTag": "ec4985ae-10c8-4d99-bc94-48dc163dd086"
           },
           {
             "name": "Item Value BRL",
+            "displayFolder": "Financial context",
             "expression": "SUM(Orders[item_cents]) / 100",
             "formatString": "\"R$\" #,0.00",
-            "displayFolder": "Financial context"
+            "lineageTag": "024f0a75-5851-4e0b-b3a3-87660c8a72a2"
           },
           {
             "name": "Freight Charged BRL",
+            "displayFolder": "Financial context",
             "expression": "SUM(Orders[freight_cents]) / 100",
             "formatString": "\"R$\" #,0.00",
-            "displayFolder": "Financial context"
+            "lineageTag": "a3c55426-23f2-4206-adc8-0cd646f01deb"
           },
           {
             "name": "Seller Eligible",
+            "displayFolder": "Seller investigation",
             "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Eligible Deliveries])",
             "formatString": "#,0",
-            "displayFolder": "Seller investigation"
+            "lineageTag": "39dfbe41-82f2-4474-97e3-c5405d5c44c9"
           },
           {
             "name": "Seller Late",
+            "displayFolder": "Seller investigation",
             "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Late Deliveries])",
             "formatString": "#,0",
-            "displayFolder": "Seller investigation"
+            "lineageTag": "b1cc1ca3-d36a-4909-8713-ea0153f00d70"
           },
           {
             "name": "Seller Late Rate",
+            "displayFolder": "Seller investigation",
             "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Late Rate])",
             "formatString": "0.0%",
-            "displayFolder": "Seller investigation"
+            "lineageTag": "28b9d248-4b34-40b2-aab9-d9b46173c75e"
           },
           {
             "name": "Seller Mean Days",
+            "displayFolder": "Seller investigation",
             "expression": "IF(SELECTEDVALUE(Orders[seller]) <> \"Multiple sellers\" && SELECTEDVALUE(Orders[seller]) <> \"No seller\" && HASONEVALUE(Orders[seller]) && [Eligible Deliveries] >= 100, [Mean Delivery Days])",
             "formatString": "0.0",
-            "displayFolder": "Seller investigation"
+            "lineageTag": "75810221-84d5-4072-afb8-6aee7727993e"
           },
           {
             "name": "Report Title",
+            "displayFolder": "Context",
             "expression": "\"OLIST / Delivery Intelligence\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "6ef3651c-8f29-4600-86bd-0a756ce0e7f9"
           },
           {
             "name": "Source Note",
+            "displayFolder": "Context",
             "expression": "\"Talha Fatir | Public Olist data | Brazil, 2016-2018 | CC BY-NC-SA 4.0\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "85e79717-cc0b-4ab8-9f11-e4080361b6a5"
           },
           {
             "name": "Delivery Rule",
+            "displayFolder": "Context",
             "expression": "\"Late = arrival calendar date after promise; valid delivered orders only.\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "a03b089c-155b-41b1-86cf-7e8424a6fefc"
           },
           {
             "name": "Review Rule",
+            "displayFolder": "Context",
             "expression": "\"Latest answered review per order; missing reviews excluded. Association, not causation.\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "0db16d54-b69c-4789-b038-4e4fb1c07e2d"
           },
           {
             "name": "Seller Rule",
+            "displayFolder": "Context",
             "expression": "\"Single-seller orders only; at least 100 eligible deliveries in selection.\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "bddf33ca-094f-4e1d-b5f0-b279031c8309"
           },
           {
             "name": "Money Rule",
+            "displayFolder": "Context",
             "expression": "\"Item value is GMV, not revenue. Freight charged is not verified carrier cost.\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "99c96e2e-22c3-475b-809d-ee37d4188eec"
           },
           {
             "name": "Scope Rule",
+            "displayFolder": "Context",
             "expression": "\"Historical Brazil extract; partial edge months. No current Canadian market claims.\"",
-            "formatString": "",
-            "displayFolder": "Context"
+            "lineageTag": "68b92097-308a-4987-8f2a-65e351a033cf"
           }
         ],
         "partitions": [
@@ -258,7 +311,6 @@
             "name": "Orders",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
                 " Source = Csv.Document(File.Contents(DataFolder & \"/Orders.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
@@ -267,7 +319,8 @@
                 " Typed = Table.TransformColumnTypes(Nulls,{{\"order_id\", type text}, {\"month\", type text}, {\"state\", type text}, {\"category\", type text}, {\"seller\", type text}, {\"status\", type text}, {\"eligible\", Int64.Type}, {\"late\", Int64.Type}, {\"delivery_days\", type number}, {\"review_score\", Int64.Type}, {\"item_cents\", Int64.Type}, {\"freight_cents\", Int64.Type}, {\"year\", type text}, {\"delivery_group\", type text}},\"en-CA\")",
                 "in",
                 " Typed"
-              ]
+              ],
+              "type": "m"
             }
           }
         ]

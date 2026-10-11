@@ -23,7 +23,7 @@ P90 Delivery Days =
 VAR T = FILTER(Orders, Orders[eligible] = 1 && NOT ISBLANK(Orders[delivery_days])) VAR N = COUNTROWS(T) RETURN IF(N > 0, MAXX(TOPN(ROUNDUP(N * 0.9, 0), T, Orders[delivery_days], ASC), Orders[delivery_days]))
 
 Reviewed Deliveries =
-CALCULATE([Eligible Deliveries], NOT ISBLANK(Orders[review_score]))
+CALCULATE([Eligible Deliveries], KEEPFILTERS(NOT ISBLANK(Orders[review_score])))
 
 Low Reviews =
 CALCULATE([Reviewed Deliveries], Orders[review_score] IN {1, 2})

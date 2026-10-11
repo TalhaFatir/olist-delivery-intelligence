@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "325d92167c525cdcb83f",
   "position": {
     "x": 910,
     "y": 255,
-    "width": 498,
-    "height": 275,
     "z": 10,
+    "height": 275,
+    "width": 498,
     "tabOrder": 10
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Orders.delivery_group",
-              "nativeQueryRef": "delivery_group"
+              "nativeQueryRef": "delivery_group",
+              "active": true
             }
           ]
         },
@@ -49,6 +50,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Orders"
+                  }
+                },
+                "Property": "Low Review Rate"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "visualContainerObjects": {
