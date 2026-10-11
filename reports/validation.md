@@ -23,6 +23,6 @@ Checked October 11, 2026.
 | Dynamic filtered export | Button exercised; automated download event timed out, so final browser download completion is not verified |
 | Power BI generated source | 48 official-schema documents passed; 40 visual layouts and model references checked; 99,441 source rows and exact financial totals reconciled |
 | Power BI runtime | Desktop refresh/DAX execution and public service publication pending; Windows session locked |
-| GitHub | Public TalhaFatir/olist-delivery-intelligence repository created; upload in progress |
+| GitHub | Public TalhaFatir/olist-delivery-intelligence upload verified; commit author Talha Fatir <talha01677@gmail.com> |
 
 Browser QA initially identified an application syntax error; repaired and a script-parsing test added. Final dashboard rendered, and filters/views were checked after repair. Local file delivery uses script-loaded data, not fetch. No statistical causal inference, experiment results or realized operational savings are claimed.
