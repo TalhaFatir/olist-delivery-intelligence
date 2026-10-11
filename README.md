@@ -48,4 +48,4 @@ Delivery KPIs include delivered orders with valid purchase/delivery/promise date
 Multiple reviews resolve to the latest answered review per order, with deterministic timestamp/ID/score tie-breaks. Financial values aggregate all items before order-level joins, avoiding multiplication by item or review rows. Mixed categories and multiple sellers remain explicit groups; seller ranking excludes multiple-seller orders. Seller aliases are generated analytical labels, not company names. Item value is GMV, not Olist revenue or profit. Freight charges are not verified carrier costs. Review comparison excludes missing reviews and does not control for confounding or voluntary response bias.
 
 ## Scope
-This project demonstrates SQL, metric design, operational analysis, data validation, interactive reporting and business requirements. Public Power BI publication is pending Desktop refresh and service verification.
+This project demonstrates SQL, metric design, operational analysis, data validation, interactive reporting and business requirements. The native Power BI report has been refreshed and verified in Desktop. Public service publication and a live link are pending.

@@ -8,4 +8,4 @@ Three built pages: Delivery Overview, Seller Priorities, Evidence & Scope. Item 
 
 Rebuild: `python src/build_powerbi.py`. Optional full generated-source schema checks require `jsonschema` and `referencing`: `python src/validate_powerbi.py`. After Desktop saves a newer schema, `--structural-only` validates fields, totals and layout without claiming full schema validation. P90 uses nearest-rank logic, matching the browser rather than interpolated percentiles.
 
-Publication status: generated native source; Desktop refresh and public service publication pending.
+Publication status: all three pages refreshed and rendered in Desktop. Corrected review-filter context and source totals verified; saved-source structural checks passed. Public service publication is pending.
